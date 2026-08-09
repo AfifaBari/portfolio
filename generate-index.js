@@ -6,7 +6,7 @@ const categoriesDir = './media/Portfolio';
 // Category mapping: folder name -> data-category value for filtering
 const categoryMap = {
   'Sculptures- Installations': 'sculpture',
-  'Alt Photography': 'photography',
+  'Photography': 'photography',
   'Digital Collages': 'digital',
   'Public Art': 'public-art',
   'Textiles': 'textiles',

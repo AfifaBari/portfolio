@@ -1,30 +1,30 @@
 [
   {
-    "src": "media/Portfolio/Alt Photography/IMG_4616.jpeg",
-    "alt": "IMG 4616",
-    "category": "photography",
-    "title": "IMG 4616",
+    "src": "media/Portfolio/Alt Photography/IMG4616.jpg",
+    "alt": "IMG4616",
+    "category": "alt-photography",
+    "title": "IMG4616",
     "categoryName": "Alt Photography"
   },
   {
-    "src": "media/Portfolio/Alt Photography/IMG_4617.jpeg",
-    "alt": "IMG 4617",
-    "category": "photography",
-    "title": "IMG 4617",
+    "src": "media/Portfolio/Alt Photography/IMG4617.jpg",
+    "alt": "IMG4617",
+    "category": "alt-photography",
+    "title": "IMG4617",
     "categoryName": "Alt Photography"
   },
   {
-    "src": "media/Portfolio/Alt Photography/IMG_4618.jpeg",
-    "alt": "IMG 4618",
-    "category": "photography",
-    "title": "IMG 4618",
+    "src": "media/Portfolio/Alt Photography/IMG4618.jpeg",
+    "alt": "IMG4618",
+    "category": "alt-photography",
+    "title": "IMG4618",
     "categoryName": "Alt Photography"
   },
   {
-    "src": "media/Portfolio/Alt Photography/IMG_4619.jpeg",
-    "alt": "IMG 4619",
-    "category": "photography",
-    "title": "IMG 4619",
+    "src": "media/Portfolio/Alt Photography/IMG4619.jpeg",
+    "alt": "IMG4619",
+    "category": "alt-photography",
+    "title": "IMG4619",
     "categoryName": "Alt Photography"
   },
   {
@@ -383,6 +383,34 @@
     "category": "paintings",
     "title": "Vogue  30 x 30  Oil on Wood Panel  2020 ",
     "categoryName": "Oil Paintings"
+  },
+  {
+    "src": "media/Portfolio/Photography/IMG4616.jpg",
+    "alt": "IMG4616",
+    "category": "photography",
+    "title": "IMG4616",
+    "categoryName": "Photography"
+  },
+  {
+    "src": "media/Portfolio/Photography/IMG4617.jpg",
+    "alt": "IMG4617",
+    "category": "photography",
+    "title": "IMG4617",
+    "categoryName": "Photography"
+  },
+  {
+    "src": "media/Portfolio/Photography/IMG4618.jpeg",
+    "alt": "IMG4618",
+    "category": "photography",
+    "title": "IMG4618",
+    "categoryName": "Photography"
+  },
+  {
+    "src": "media/Portfolio/Photography/IMG4619.jpeg",
+    "alt": "IMG4619",
+    "category": "photography",
+    "title": "IMG4619",
+    "categoryName": "Photography"
   },
   {
     "src": "media/Portfolio/Public Art/Fragile Hearts  Mini Golf Course  NorthCrest Developments  2023.png",
