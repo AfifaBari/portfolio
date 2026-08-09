@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About – Afifa Bari</title>
+  <style>
+    /* CSS Variables & Design Tokens */
+    :root {
+      --bg-primary: #ffffff;
+      --bg-secondary: #f8f8f8;
+      --text-primary: #1d1d1d;
+      --text-secondary: #6e6e73;
+      --border-color: #e5e5e7;
+      --accent: #0071e3;
+      
+      --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+      --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+      
+      --spacing-xs: 0.5rem;
+      --spacing-sm: 1rem;
+      --spacing-md: 1.5rem;
+      --spacing-lg: 2rem;
+      --spacing-xl: 3rem;
+      --spacing-2xl: 4rem;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg-primary: #1d1d1d;
+        --bg-secondary: #2d2d2d;
+        --text-primary: #f5f5f7;
+        --text-secondary: #a1a1a6;
+        --border-color: #424245;
+      }
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    /* Typography */
+    h1 {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      font-weight: 700;
+      margin-bottom: var(--spacing-md);
+    }
+
+    h2 {
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      line-height: 1.2;
+      letter-spacing: -0.015em;
+      font-weight: 600;
+      margin-bottom: var(--spacing-lg);
+      margin-top: var(--spacing-2xl);
+      padding-bottom: var(--spacing-md);
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    h3 {
+      font-size: 1.125rem;
+      font-weight: 600;
+      margin-bottom: var(--spacing-md);
+      letter-spacing: -0.01em;
+      margin-top: var(--spacing-lg);
+    }
+
+    p {
+      color: var(--text-secondary);
+      line-height: 1.8;
+      margin-bottom: var(--spacing-md);
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+      transition: opacity 150ms var(--ease-out);
+    }
+
+    a:hover {
+      opacity: 0.7;
+    }
+
+    /* Header & Navigation */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(20px) saturate(180%);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+      padding: var(--spacing-md) var(--spacing-lg);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      header {
+        background: rgba(29, 29, 29, 0.7);
+        border-bottom-color: rgba(255, 255, 255, 0.1);
+      }
+    }
+
+    .header-content {
+      max-width: 1000px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+
+    nav {
+      display: flex;
+      gap: var(--spacing-lg);
+      list-style: none;
+    }
+
+    nav a {
+      font-size: 0.9rem;
+      color: var(--text-primary);
+      transition: color 150ms ease;
+      position: relative;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 200ms var(--ease-out);
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      nav a:hover::after {
+        transform: scaleX(1);
+      }
+    }
+
+    /* Main Content */
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: var(--spacing-2xl) var(--spacing-lg);
+    }
+
+    /* Hero/Intro Section */
+    .intro {
+      margin-bottom: var(--spacing-2xl);
+      opacity: 0;
+      animation: fadeInUp 0.8s var(--ease-out) 0.1s forwards;
+    }
+
+    .intro h1 {
+      margin-bottom: var(--spacing-2xl);
+    }
+
+    .intro-content {
+      display: flex;
+      gap: var(--spacing-2xl);
+      align-items: flex-start;
+    }
+
+    .artist-image-container {
+      flex-shrink: 0;
+      width: 300px;
+      opacity: 0;
+      animation: fadeInUp 0.8s var(--ease-out) 0.2s forwards;
+    }
+
+    .artist-image {
+      width: 100%;
+      height: auto;
+      border-radius: 16px;
+      object-fit: cover;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+      transition: transform 300ms var(--ease-in-out);
+      display: block;
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      .artist-image:hover {
+        transform: scale(1.02);
+      }
+    }
+
+    @media (max-width: 1024px) {
+      .intro-content {
+        flex-direction: column;
+        align-items: center;
+        gap: var(--spacing-xl);
+      }
+
+      .artist-image-container {
+        width: 100%;
+        max-width: 400px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .intro-content {
+        gap: var(--spacing-lg);
+      }
+
+      .artist-image-container {
+        max-width: 100%;
+      }
+
+      .artist-image {
+        border-radius: 12px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      }
+    }
+
+    .bio {
+      flex: 1;
+      opacity: 0;
+      animation: fadeInUp 0.8s var(--ease-out) 0.25s forwards;
+    }
+
+    .bio p {
+      margin-bottom: var(--spacing-md);
+    }
+
+    .bio p:last-child {
+      margin-bottom: var(--spacing-lg);
+    }
+
+    .contact-links {
+      display: flex;
+      gap: var(--spacing-lg);
+      margin-top: var(--spacing-lg);
+      flex-wrap: wrap;
+    }
+
+    .contact-links a {
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    /* CV Section */
+    .cv-section {
+      margin-bottom: var(--spacing-2xl);
+      opacity: 0;
+      animation: fadeInUp 0.6s var(--ease-out) forwards;
+    }
+
+    .cv-section:nth-child(1) { animation-delay: 0.2s; }
+    .cv-section:nth-child(2) { animation-delay: 0.25s; }
+    .cv-section:nth-child(3) { animation-delay: 0.3s; }
+    .cv-section:nth-child(4) { animation-delay: 0.35s; }
+    .cv-section:nth-child(5) { animation-delay: 0.4s; }
+    .cv-section:nth-child(6) { animation-delay: 0.45s; }
+    .cv-section:nth-child(7) { animation-delay: 0.5s; }
+    .cv-section:nth-child(8) { animation-delay: 0.55s; }
+    .cv-section:nth-child(n+9) { animation-delay: 0.6s; }
+
+    .cv-entry {
+      margin-bottom: var(--spacing-lg);
+      padding-bottom: var(--spacing-lg);
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .cv-entry:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .cv-entry-year {
+      font-weight: 600;
+      color: var(--accent);
+      font-size: 0.9rem;
+      margin-bottom: var(--spacing-xs);
+    }
+
+    .cv-entry-title {
+      font-weight: 600;
+      margin-bottom: var(--spacing-xs);
+      color: var(--text-primary);
+    }
+
+    .cv-entry-detail {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+
+    /* List Styling */
+    ul {
+      margin: var(--spacing-md) 0 var(--spacing-md) var(--spacing-lg);
+      list-style: disc;
+    }
+
+    li {
+      margin-bottom: var(--spacing-sm);
+      color: var(--text-secondary);
+      line-height: 1.8;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--bg-secondary);
+      border-top: 1px solid var(--border-color);
+      padding: var(--spacing-2xl) var(--spacing-lg);
+      margin-top: var(--spacing-2xl);
+    }
+
+    .footer-content {
+      max-width: 900px;
+      margin: 0 auto;
+      text-align: center;
+      padding-top: var(--spacing-lg);
+      border-top: 1px solid var(--border-color);
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .scroll-reveal {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    .scroll-reveal.visible {
+      animation: scrollReveal 0.6s var(--ease-out) forwards;
+    }
+
+    @keyframes scrollReveal {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    @media (max-width: 640px) {
+      nav {
+        gap: var(--spacing-md);
+        font-size: 0.85rem;
+      }
+
+      .contact-links {
+        flex-direction: column;
+        gap: var(--spacing-md);
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation Header -->
+  <header>
+    <div class="header-content">
+      <a href="index.html" class="logo">Afifa Bari</a>
+      <nav>
+        <a href="index.html">Work</a>
+        <a href="about.html">About</a>
+        <a href="index.html#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <div class="container">
+    <!-- Intro Section -->
+    <section class="intro">
+      <h1>About</h1>
+      
+      <div class="intro-content">
+        <!-- Artist Image -->
+        <div class="artist-image-container">
+          <img src="media/about/artist-portrait.jpg" alt="Afifa Bari" class="artist-image">
+        </div>
+
+        <div class="bio">
+          <p><strong>Afifa Bari</strong> (B.1997) is an interdisciplinary artist based in Toronto. She earned her BFA from York University in 2020, and her MFA from OCAD University in 2024.</p>
+          
+          <p>Through representational art, she examines the contemporary world through the lens of capitalism, uncovering consumerist values in her work. Her work focuses on material possessions and the desire for materialism in the newly advancing society. She discusses evolving ideas of luxury in modern society from a socio-political and environmental outlook.</p>
+          
+          <p>Her work also focuses on ideas surrounding slow art and slow living in an anti-capitalist approach against hustle culture. She currently works as a freelance artist and takes commissions.</p>
+          
+          <div class="contact-links">
+            <a href="mailto:afifabaristudio@gmail.com">afifabaristudio@gmail.com</a>
+            <a href="https://www.instagram.com/_fiffs/" target="_blank">Instagram</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CV Sections -->
+    
+    <!-- Education -->
+    <section class="cv-section scroll-reveal">
+      <h2>Education</h2>
+      <div class="cv-entry">
+        <div class="cv-entry-year">2022–2024</div>
+        <div class="cv-entry-title">OCAD University</div>
+        <div class="cv-entry-detail">Masters of Fine Arts — Interdisciplinary Masters in Art, Media, and Design</div>
+      </div>
+      <div class="cv-entry">
+        <div class="cv-entry-year">2021</div>
+        <div class="cv-entry-title">Ontario Museum Association</div>
+        <div class="cv-entry-detail">Certificate of Museum Studies</div>
+      </div>
+      <div class="cv-entry">
+        <div class="cv-entry-year">2015–2020</div>
+        <div class="cv-entry-title">York University</div>
+        <div class="cv-entry-detail">Bachelor of Fine Arts Spec. Honours — Visual Arts and Art History</div>
+      </div>
+    </section>
+
+    <!-- Additional Training -->
+    <section class="cv-section scroll-reveal">
+      <h2>Additional Training</h2>
+      <ul>
+        <li><strong>2026</strong> — Open Studio Spray Paint Workshop, Toronto Collective, Toronto, ON</li>
+        <li><strong>2026</strong> — Camera-less Image Making, UrbanArts, Toronto, ON</li>
+        <li><strong>2026</strong> — The Artist Must Take Sides: Culture and the Movement Past, Present and Future, The People's Forum, New York City, NY (virtual)</li>
+        <li><strong>2025</strong> — Power Hour: Anti-Oppression for Artists & Cultural Producers, Brampton Arts Organization, Brampton, ON</li>
+        <li><strong>2025</strong> — Let Them Tremble: Power, Crisis and Opportunity, The People's Forum, New York City, NY (virtual)</li>
+        <li><strong>2025</strong> — ALL POWER TO THE PEOPLE: A Summer School for Socialism, The People's Forum, New York City, NY (virtual)</li>
+        <li><strong>2025</strong> — Leftover Ingredients, Faculty of Information, University of Toronto, Toronto, ON</li>
+        <li><strong>2025</strong> — Make Your Own Paint Workshop, Sustainable Colour Lab, OCAD University, Toronto, ON</li>
+        <li><strong>2025</strong> — Painting as Composite Material Workshop, Sustainable Colour Lab, OCAD University, Toronto, ON</li>
+        <li><strong>2025</strong> — Power Hour: Arts Administration 101, Brampton Arts Organization, Brampton, ON</li>
+      </ul>
+    </section>
+
+    <!-- Solo & Duo Exhibitions -->
+    <section class="cv-section scroll-reveal">
+      <h2>Solo and Duo Exhibitions</h2>
+      <ul>
+        <li><strong>2026</strong> — On Landscapes and Climate Change, Supernova Coffee, Toronto, ON</li>
+        <li><strong>2025</strong> — Moments of Meditation, She Said Gallery, Toronto, ON</li>
+        <li><strong>2024</strong> — A Broken Palace, MFA Thesis Exhibition, Ignite Gallery, OCAD University, Toronto, ON</li>
+        <li><strong>2022</strong> — Everything Can Be, Remote Gallery, Toronto, ON</li>
+        <li><strong>2021</strong> — Miss Understood, Duo Exhibition with Ozge Aytekin, Collision Gallery, Toronto, ON (in-person and virtual)</li>
+      </ul>
+    </section>
+
+    <!-- Group Exhibitions -->
+    <section class="cv-section scroll-reveal">
+      <h2>Group Exhibitions</h2>
+      
+      <h3>2026</h3>
+      <ul>
+        <li>KEEP ART HUMAN, Art Official, Toronto, ON</li>
+        <li>Camera-less Image Making, Urban Arts, Toronto, ON</li>
+        <li>12 Hour Artathon: Throbbing Rose, Doors Open, Toronto, ON</li>
+      </ul>
+
+      <h3>2025</h3>
+      <ul>
+        <li>Sounds of quiet, Art Not Shame, Guelph, ON</li>
+        <li>Mini-Mini 50/50 & Silent Auction and Holiday Fundraiser, Artspace, Peterborough, ON</li>
+        <li>Island Mountain Arts Online Auction, Island Mountain Arts, Wells, BC</li>
+        <li>Woven Together, Next Generation Arts, Scarborough, ON</li>
+        <li>I am going to give my heat to the lake, Gibraltar Point Centre for the Arts, Toronto, ON</li>
+        <li>Post-It Port Hope Exhibition, Critical Mass: A Centre for Contemporary Art, Port Hope, ON</li>
+        <li>All The Small Things, Northern Contemporary, Toronto, ON</li>
+        <li>Glimpses of Nature, Toronto Public Library—Leaside Branch, Toronto, ON</li>
+        <li>a piece of cloth (a community quilt project), The Public Studio, Toronto, ON</li>
+      </ul>
+
+      <h3>2024</h3>
+      <ul>
+        <li>we made it through the wilderness, Studio 13 Fine Art, Vancouver, BC</li>
+        <li>World Art Day Exhibition, Visual Arts Mississauga, Mississauga, ON</li>
+      </ul>
+
+      <h3>2023</h3>
+      <ul>
+        <li>The Aliens aren't Coming, Graduate Gallery, OCAD University, Toronto, ON</li>
+        <li>Too Big to Fail, First Year Graduate Showcase, Open Space Gallery, OCAD University, Toronto, ON</li>
+      </ul>
+
+      <h3>2022</h3>
+      <ul>
+        <li>The Incomplete: Speculative Fragments, First Year Graduate Showcase, Great Hall, OCAD University, Toronto, ON</li>
+        <li>Akin Winter Exhibition and Art Market, Clark Centre for the Arts, City of Toronto, Toronto, ON</li>
+        <li>New Vistas: The Spaces We Inhabit, Etobicoke Civic Centre Art Gallery, City of Toronto, Toronto, ON</li>
+        <li>PAINTING 2022/23, John B. Aird Gallery, Toronto, ON (virtual)</li>
+        <li>Fashion Stories: Exploring Sustainability in Fashion through Art, Most Wanted Luxury Resale, Kelowna, BC</li>
+        <li>Toronto Outdoor Art Fair #TOAF61, Toronto, ON</li>
+        <li>What If Parks Were Safe For Everyone?, Department of Imaginary Affairs, RCAD Initiative, Artscape Weston Commons, London, ON</li>
+        <li>MONEY. FASHION. POWER., Fashion Revolution Week, Spadina Centre for Social Innovation, Toronto, ON</li>
+        <li>I AM HERE: Home Movies and Everyday Masterpieces, Art Gallery of Ontario, Toronto, ON</li>
+        <li>CreateSpace Public Art Forum Gallery, Steps Public Art, Toronto, ON (virtual)</li>
+      </ul>
+
+      <h3>2021</h3>
+      <ul>
+        <li>Portraits of Resilience, Art Gallery of Ontario, Toronto, ON (virtual)</li>
+        <li>School Times, Gallery 1313, Toronto, ON (virtual)</li>
+        <li>Toronto Emerging Artists Exhibition 2021, Gallery 1313, Toronto, ON (virtual)</li>
+      </ul>
+
+      <h3>2020</h3>
+      <ul>
+        <li>Coalition—Open House, York University, Toronto, ON</li>
+        <li>Ephemeral, Gallery 1313, Toronto, ON</li>
+      </ul>
+
+      <h3>2019</h3>
+      <ul>
+        <li>Open Gallery, Earls Winter Art Gallery, Toronto, ON</li>
+        <li>Super Mega Ultra—Open House, York University, ON</li>
+        <li>Painting Area Show, Gales Gallery, Toronto, ON</li>
+        <li>The Collective, Special Projects Gallery, Toronto, ON</li>
+        <li>The Collective, Gallery 1313, Toronto, ON</li>
+      </ul>
+
+      <h3>2018</h3>
+      <ul>
+        <li>Open Gallery, Earls Winters Art Gallery, Toronto, ON</li>
+      </ul>
+    </section>
+
+    <!-- Poetry Performances -->
+    <section class="cv-section scroll-reveal">
+      <h2>Poetry Performances</h2>
+      <ul>
+        <li><strong>2025</strong> — JAYU Slams: Summer Edition, JAYU Studio, Toronto, ON</li>
+      </ul>
+    </section>
+
+    <!-- Public Art -->
+    <section class="cv-section scroll-reveal">
+      <h2>Public Art</h2>
+      <ul>
+        <li><strong>2026</strong> — Art on Sneaker & Canvas Showcase, MARTKD, Distillery District, Toronto, ON (forthcoming)</li>
+        <li><strong>2023</strong> — Mini Golf Course, Downsview Park, STEPS Public Art, Toronto, ON (Commission by Northcrest Developments)</li>
+        <li><strong>2023</strong> — Live Painting, Assembly Park Block Party, Assembly Park, VMC</li>
+        <li><strong>2022</strong> — Public Bench Wrap Design, Yonge-Dundas Square, City of Toronto, Toronto, ON</li>
+        <li><strong>2022</strong> — Transitions, Assembly Park Outdoor Gallery, Assembly Park, Vaughan, ON (Commission by QuadReal Property Group)</li>
+        <li><strong>2021</strong> — The Echoes of Community, Akin Projects x BigArtTO, ArtworxTO: Toronto Year of Public Art, City of Toronto, Toronto, ON</li>
+      </ul>
+    </section>
+
+    <!-- Grants & Awards -->
+    <section class="cv-section scroll-reveal">
+      <h2>Grants and Awards</h2>
+      <ul>
+        <li><strong>2025</strong> — The Denis Diderot Grant for the Château d'Orquevaux Residency</li>
+        <li><strong>2025</strong> — The Emerging Artist Grant for the Château d'Orquevaux Residency</li>
+        <li><strong>2022</strong> — ArtworxTO Spotlight Emerging Artist Award, ArtworxTO: Toronto Year of Public Art, City of Toronto</li>
+      </ul>
+    </section>
+
+    <!-- Professional Experience -->
+    <section class="cv-section scroll-reveal">
+      <h2>Professional Experience</h2>
+      <ul>
+        <li><strong>2026</strong> — Committee Member, Group of Emerging Museum Professionals</li>
+        <li><strong>2026</strong> — Volunteer Facilitator, Royal Ontario Museum</li>
+        <li><strong>2025</strong> — Volunteer, City Cultural Events, City of Toronto</li>
+        <li><strong>2025</strong> — Strategic Development Intern, Rchive</li>
+        <li><strong>2025</strong> — Volunteer, InterAccess Vector Festival</li>
+        <li><strong>2025</strong> — Volunteer, Images Festival</li>
+        <li><strong>2025</strong> — Volunteer, Toronto International Storytelling Festival</li>
+        <li><strong>2021</strong> — Art Hub Attendant/Gallery Assistant, ArtworxTO, City of Toronto</li>
+        <li><strong>2021</strong> — Youth Ambassador, Fashion Takes Action</li>
+        <li><strong>2021</strong> — Ambassador, Remake: Ethically Fashionable</li>
+        <li><strong>2019</strong> — Special Events Intern, Arta Gallery, Toronto</li>
+      </ul>
+    </section>
+
+    <!-- Teaching Experience -->
+    <section class="cv-section scroll-reveal">
+      <h2>Teaching Experience</h2>
+      <ul>
+        <li><strong>2026</strong> — Tote your Heart Out, Vaughan Culture Days, Vaughan, ON (forthcoming)</li>
+        <li><strong>2026</strong> — Landscape Watercolour Postcard Workshop, Supernova Coffee, Toronto, ON (forthcoming)</li>
+        <li><strong>2026</strong> — Heart to Heart, BIG on BLOOR Festival, Toronto, ON</li>
+        <li><strong>2026</strong> — Adult Art Instructor, City of Toronto, Toronto</li>
+        <li><strong>2025</strong> — Mentor, Malvern Makers Diasporic Arts Collective</li>
+        <li><strong>2024–present</strong> — Art Instructor, Neilson Park Creative Centre</li>
+        <li><strong>2024</strong> — Summer Camp Art Instructor, Neilson Park Creative Centre, Toronto</li>
+        <li><strong>2022–2024</strong> — Graduate Teaching Assistant, OCAD University, Toronto</li>
+        <li><strong>2024</strong> — Art Teacher, Children of Bisheh, Brighton School</li>
+        <li><strong>2023</strong> — Monarch Butterfly Workshop, Walk with Amal Toronto, Luminato Festival</li>
+        <li><strong>2021</strong> — Art with Intention, #GiveYourValues Paint Night with Remake, Toronto</li>
+        <li><strong>2020</strong> — Monoprint Workshop with Hadia Hassan, Visual Arts Student Association</li>
+        <li><strong>2020</strong> — Watercolor Landscape Workshop, Visual Arts Student Association</li>
+        <li><strong>2019</strong> — AMPD Arts Facilitator, Futures Lab</li>
+        <li><strong>2019</strong> — Drawing Representative, Visual Arts Student Association</li>
+        <li><strong>2018</strong> — Director of Promotions, Winters Community Art Club</li>
+        <li><strong>2017</strong> — Director of Visual Arts, Winters Community Art Club</li>
+      </ul>
+    </section>
+
+    <!-- Talks & Lectures -->
+    <section class="cv-section scroll-reveal">
+      <h2>Talks and Lectures</h2>
+      <ul>
+        <li><strong>2026</strong> — On Landscapes and Climate Change, Supernova Coffee, Toronto, ON (forthcoming)</li>
+        <li><strong>2023</strong> — Too Big to Fail, Open Space Gallery, OCAD University</li>
+        <li><strong>2022</strong> — Assembly Park: Art Alley Artist Talk, Vaughan, ON (virtual)</li>
+        <li><strong>2022</strong> — The truth behind "Facing Reality", University of Toronto Scarborough, Toronto, ON (virtual)</li>
+      </ul>
+    </section>
+
+    <!-- Residencies & Programs -->
+    <section class="cv-section scroll-reveal">
+      <h2>Residencies and Programs</h2>
+      <ul>
+        <li><strong>2027</strong> — The Château d'Orquevaux Artists & Writers Residency, Champagne-Ardenne, France (forthcoming)</li>
+        <li><strong>2026</strong> — IAM Mural Painting program x Black Creek Community Farm, JAYU, Toronto, ON</li>
+        <li><strong>2026</strong> — Night-Shift Residency, Toronto, ON (remote)</li>
+        <li><strong>2026</strong> — Pollinator Program, Pollinator Coop, New York City, NY (virtual)</li>
+        <li><strong>2025</strong> — DesignTO Youth 'Otherworld' Residency Program, Toronto, ON (virtual)</li>
+        <li><strong>2025</strong> — Pollinator Program 2025, Pollinator Coop, New York City, NY (virtual)</li>
+        <li><strong>2025</strong> — VIEWS: MY RISING, Public Art and Mural Making Program, Next Generation Arts, Scarborough, ON</li>
+        <li><strong>2025</strong> — FEELers SUMMER CAMP 2025, Naramata Centre, The University of British Columbia—Okanagan Campus, Naramata, BC</li>
+        <li><strong>2024–2025</strong> — a piece of cloth (a community quilt project), The Public Studio, Toronto, ON</li>
+        <li><strong>2024</strong> — Walking & Art: Discussions at the Wayside, Artscape Gibraltar Point, Toronto, ON</li>
+        <li><strong>2023</strong> — I made it through the wilderness: Making Art Through Climate Change, Artscape Gibraltar Point, Toronto, ON</li>
+        <li><strong>2023</strong> — Akin Studio Program at AUTO bldg, Toronto, ON</li>
+        <li><strong>2022</strong> — CreateSpace Public Art Forum, Toronto (virtual)</li>
+        <li><strong>2022</strong> — Akin Studio Program at AUTO bldg, Toronto, ON</li>
+        <li><strong>2020</strong> — Akin x Collision Gallery Residency, Toronto, ON</li>
+      </ul>
+    </section>
+
+    <!-- Curatorial -->
+    <section class="cv-section scroll-reveal">
+      <h2>Curatorial</h2>
+      <ul>
+        <li><strong>2026</strong> — Co-Curator, KEEP ART HUMAN, Art Official, Toronto, ON</li>
+        <li><strong>2023</strong> — Too Big to Fail, Open Space Gallery, Toronto, ON</li>
+        <li><strong>2019</strong> — Drawing Area Show, Gales Gallery, Toronto, ON</li>
+      </ul>
+    </section>
+
+    <!-- Collections -->
+    <section class="cv-section scroll-reveal">
+      <h2>Collections</h2>
+      <ul>
+        <li>Youth for Human Rights International, Toronto, ON</li>
+        <li>Private Collection, Toronto, ON</li>
+        <li>Private Collection, Richmond Hill, ON</li>
+      </ul>
+    </section>
+
+    <!-- Press & Publications -->
+    <section class="cv-section scroll-reveal">
+      <h2>Press and Publications</h2>
+      <ul>
+        <li><strong>2025</strong> — <a href="https://static1.squarespace.com/static/555a47cce4b083a82002b85e/t/685d662a79996d6652597b9d/1750951484024/iAM+Retrospective.pdf" target="_blank">iAM Retrospective Zine: Vol. 1</a>, JAYU, July 2025</li>
+        <li><strong>2024</strong> — <a href="https://www.partial.gallery/collection/the-miracle-and-imagination-and-colour-by-tiffany-pratt" target="_blank">THE MIRACLE & IMAGINATION & COLOUR, a curated collection</a>, Partial Gallery, May 2024</li>
+        <li><strong>2023</strong> — <a href="https://www.cbc.ca/arts/ocad-art-and-design-masters-too-big-to-fail-1.6803966" target="_blank">This art show is Too Big to Fail</a>, CBC Arts, April 2023</li>
+        <li><strong>2023</strong> — Too Big to Fail, Akimbo Art, March 2023</li>
+        <li><strong>2023</strong> — Too Big to Fail, BlogTO, March 2023</li>
+        <li><strong>2022</strong> — Here and Now, Public Art at Yonge-Dundas Square, September 2022</li>
+        <li><strong>2022</strong> — Newsletter No. 22, Art + Public UnLtd., August 2022</li>
+        <li><strong>2022</strong> — Assembly Park: Art Alley Artist Talk, Art + Public UnLtd, August 2022</li>
+        <li><strong>2022</strong> — Honest! COLOURFUL! Personal! LOOSE!, Toronto Outdoor Art Fair, Curated Collections, July 2022</li>
+        <li><strong>2022</strong> — Just a Moment, Toronto Outdoor Art Fair, Curated Collections, July 2022</li>
+        <li><strong>2022</strong> — Listen. Learn. Act Zine 3, ArtworxTO, City of Toronto, June 2022</li>
+        <li><strong>2022</strong> — ArtworxTO: I am land that remembers, Akimbo Art, June 2022</li>
+        <li><strong>2022</strong> — ArtworxTO Emerging Artist Spotlight, ArtworxTO, City of Toronto, June 2022</li>
+        <li><strong>2022</strong> — ART COMP Art Guide, 100 Kellogg Lane, May 2022</li>
+        <li><strong>2022</strong> — Meet the Artist, The Curators Club Journal, Partial Gallery, May 2022</li>
+        <li><strong>2022</strong> — Invest in Our Planet, RCAD Digital Eco Zine, RCAD Initiative, April 2022</li>
+        <li><strong>2022</strong> — Everything Can Be, Akin Collective, March 2022</li>
+        <li><strong>2022</strong> — Re: Define, STEPS Public Art, March 2022</li>
+        <li><strong>2021</strong> — BigArtTO at Summerville Pool, ArtworxTO, City of Toronto, October 2021</li>
+        <li><strong>2021</strong> — BigArtTO outdoor projections, Beach Metro Community News, October 2021</li>
+        <li><strong>2021</strong> — Echoes of Community featuring Akin artists, Akin Member News, October 2021</li>
+        <li><strong>2021</strong> — Miss Understood—a virtual exhibition, Akin Collective, January 2021</li>
+        <li><strong>2021</strong> — Winter Emerging Artist Exhibit, NOW Magazine, January 2021</li>
+      </ul>
+    </section>
+
+    <!-- Memberships & Affiliations -->
+    <section class="cv-section scroll-reveal">
+      <h2>Memberships and Affiliations</h2>
+      <ul>
+        <li><strong>2026–Present</strong> — The Common College of Art</li>
+        <li><strong>2024–Present</strong> — Plein-Air Artist Collective</li>
+        <li><strong>2024–Present</strong> — Rewilding Arts Collective</li>
+        <li><strong>2024–Present</strong> — Friends of South Asia, Royal Ontario Museum</li>
+        <li><strong>2023–Present</strong> — The Power Plant x RBC Emerging Artist Program</li>
+        <li><strong>2021–Present</strong> — Founder, Double Exposure Arts</li>
+      </ul>
+    </section>
+
+    <!-- Download CV Button -->
+    <section style="text-align: center; margin: var(--spacing-2xl) 0;">
+      <a href="#" style="display: inline-block; padding: var(--spacing-md) var(--spacing-lg); background: var(--accent); color: white; border-radius: 8px; font-weight: 600; transition: opacity 150ms var(--ease-out);" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">Download CV as PDF</a>
+    </section>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <p>&copy; 2024 Afifa Bari. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Intersection Observer for scroll-reveal animations
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -100px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.scroll-reveal').forEach(el => {
+      observer.observe(el);
+    });
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        const href = this.getAttribute('href');
+        if (href !== '#' && document.querySelector(href)) {
+          e.preventDefault();
+          document.querySelector(href).scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
