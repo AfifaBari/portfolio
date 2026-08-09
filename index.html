@@ -450,6 +450,90 @@
       from { opacity: 0; }
       to { opacity: 1; }
     }
+
+    /* Lightbox Modal Styles */
+    .lightbox-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.9);
+      z-index: 1000;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .lightbox-modal.active {
+      display: flex;
+      opacity: 1;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .lightbox-content {
+      position: relative;
+      max-width: 90vw;
+      max-height: 90vh;
+      animation: zoomIn 0.3s ease-out;
+    }
+
+    .lightbox-content img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: -40px;
+      right: 0;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 36px;
+      cursor: pointer;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.2s ease;
+    }
+
+    .lightbox-close:hover {
+      transform: scale(1.2);
+    }
+
+    .lightbox-modal.active .lightbox-close {
+      top: 20px;
+    }
+
+    @keyframes zoomIn {
+      from {
+        transform: scale(0.8);
+        opacity: 0;
+      }
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .lightbox-close {
+        top: 10px;
+        right: 10px;
+        font-size: 28px;
+      }
+
+      .lightbox-content {
+        max-width: 95vw;
+        max-height: 95vh;
+      }
+    }
   </style>
 </head>
 <body>
@@ -493,6 +577,14 @@
       <!-- Images will be loaded dynamically from gallery-data.json -->
     </div>
   </section>
+
+  <!-- Lightbox Modal -->
+  <div class="lightbox-modal" id="lightbox">
+    <div class="lightbox-content">
+      <button class="lightbox-close" id="lightbox-close">&times;</button>
+      <img id="lightbox-img" src="" alt="Full size image">
+    </div>
+  </div>
 
   <!-- Footer -->
   <footer id="contact">
@@ -638,6 +730,45 @@
         if (allBtn) {
           allBtn.click();
         }
+        
+        // Add lightbox functionality
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        const lightboxClose = document.getElementById('lightbox-close');
+        
+        // Open lightbox when clicking gallery image
+        galleryItems.forEach(item => {
+          const img = item.querySelector('img');
+          img.style.cursor = 'pointer';
+          img.addEventListener('click', () => {
+            lightboxImg.src = img.src;
+            lightboxImg.alt = img.alt;
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden'; // Prevent scrolling
+          });
+        });
+        
+        // Close lightbox with X button
+        lightboxClose.addEventListener('click', () => {
+          lightbox.classList.remove('active');
+          document.body.style.overflow = '';
+        });
+        
+        // Close lightbox when clicking outside the image
+        lightbox.addEventListener('click', (e) => {
+          if (e.target === lightbox) {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = '';
+          }
+        });
+        
+        // Close lightbox with Escape key
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape' && lightbox.classList.contains('active')) {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = '';
+          }
+        });
         
       } catch (error) {
         console.error('Error loading gallery:', error);
