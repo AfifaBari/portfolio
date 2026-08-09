@@ -633,6 +633,12 @@
           });
         });
         
+        // Trigger initial display of all items
+        const allBtn = Array.from(filterBtns).find(btn => btn.getAttribute('data-filter') === 'all');
+        if (allBtn) {
+          allBtn.click();
+        }
+        
       } catch (error) {
         console.error('Error loading gallery:', error);
         document.getElementById('gallery-grid').innerHTML = '<p>Error loading gallery images. Make sure gallery-data.json exists in your project folder.</p>';
