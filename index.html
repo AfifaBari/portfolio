@@ -459,56 +459,61 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, 0.9);
+      background: rgba(0, 0, 0, 0.95);
       z-index: 1000;
       opacity: 0;
       transition: opacity 0.3s ease;
+      align-items: center;
+      justify-content: center;
     }
 
     .lightbox-modal.active {
-      display: flex;
-      opacity: 1;
-      align-items: center;
-      justify-content: center;
+      display: flex !important;
+      opacity: 1 !important;
     }
 
     .lightbox-content {
       position: relative;
       max-width: 90vw;
       max-height: 90vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       animation: zoomIn 0.3s ease-out;
     }
 
     .lightbox-content img {
-      width: 100%;
-      height: 100%;
+      max-width: 100%;
+      max-height: 100%;
+      width: auto;
+      height: auto;
       object-fit: contain;
       display: block;
     }
 
     .lightbox-close {
       position: absolute;
-      top: -40px;
-      right: 0;
-      background: none;
+      top: 20px;
+      right: 20px;
+      background: rgba(255, 255, 255, 0.2);
       border: none;
       color: white;
-      font-size: 36px;
+      font-size: 42px;
       cursor: pointer;
-      width: 40px;
-      height: 40px;
+      width: 50px;
+      height: 50px;
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: transform 0.2s ease;
+      transition: all 0.2s ease;
+      border-radius: 4px;
+      line-height: 1;
+      padding: 0;
     }
 
     .lightbox-close:hover {
-      transform: scale(1.2);
-    }
-
-    .lightbox-modal.active .lightbox-close {
-      top: 20px;
+      background: rgba(255, 255, 255, 0.4);
+      transform: scale(1.1);
     }
 
     @keyframes zoomIn {
@@ -526,7 +531,9 @@
       .lightbox-close {
         top: 10px;
         right: 10px;
-        font-size: 28px;
+        font-size: 32px;
+        width: 45px;
+        height: 45px;
       }
 
       .lightbox-content {
@@ -736,27 +743,56 @@
         const lightboxImg = document.getElementById('lightbox-img');
         const lightboxClose = document.getElementById('lightbox-close');
         
-        // Open lightbox when clicking gallery image
-        galleryItems.forEach(item => {
-          const img = item.querySelector('img');
-          img.style.cursor = 'pointer';
-          img.addEventListener('click', () => {
-            lightboxImg.src = img.src;
-            lightboxImg.alt = img.alt;
-            lightbox.classList.add('active');
-            document.body.style.overflow = 'hidden'; // Prevent scrolling
+        if (!lightbox || !lightboxImg || !lightboxClose) {
+          console.error('Lightbox elements not found');
+          return;
+        }
+        
+        console.log('Setting up lightbox for', galleryItems.length, 'items');
+        
+        // Create a function to attach click handlers
+        function attachLightboxHandlers() {
+          const allImages = document.querySelectorAll('.gallery-item img');
+          console.log('Attaching handlers to', allImages.length, 'images');
+          
+          allImages.forEach((img, index) => {
+            // Remove old listeners by cloning
+            const newImg = img.cloneNode(true);
+            img.parentNode.replaceChild(newImg, img);
+            
+            newImg.style.cursor = 'pointer';
+            newImg.addEventListener('click', function(e) {
+              e.stopPropagation();
+              console.log('Image clicked:', newImg.src);
+              lightboxImg.src = newImg.src;
+              lightboxImg.alt = newImg.alt;
+              lightbox.classList.add('active');
+              document.body.style.overflow = 'hidden';
+            });
+          });
+        }
+        
+        // Attach handlers initially
+        attachLightboxHandlers();
+        
+        // Re-attach handlers after filtering
+        filterBtns.forEach(btn => {
+          btn.addEventListener('click', () => {
+            // Wait a bit for animations then re-attach
+            setTimeout(attachLightboxHandlers, 100);
           });
         });
         
         // Close lightbox with X button
-        lightboxClose.addEventListener('click', () => {
+        lightboxClose.addEventListener('click', (e) => {
+          e.stopPropagation();
           lightbox.classList.remove('active');
           document.body.style.overflow = '';
         });
         
         // Close lightbox when clicking outside the image
         lightbox.addEventListener('click', (e) => {
-          if (e.target === lightbox) {
+          if (e.target === lightbox || e.target.classList.contains('lightbox-modal')) {
             lightbox.classList.remove('active');
             document.body.style.overflow = '';
           }
