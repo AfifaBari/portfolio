@@ -1,12 +1,12 @@
 const fs = require('fs');
 const path = require('path');
 
-const categoriesDir = './media/portfolio';
+const categoriesDir = './media/Portfolio';
 
 // Category mapping: folder name -> data-category value for filtering
 const categoryMap = {
   'Sculptures- Installations': 'sculpture',
-  'Alt-Photography': 'photography',
+  'Alt Photography': 'photography',
   'Digital Collages': 'digital',
   'Public Art': 'public-art',
   'Textiles': 'textiles',
@@ -51,7 +51,7 @@ categories.forEach(category => {
     
     images.forEach((image, index) => {
       galleryData.push({
-        src: `media/portfolio/${category}/${image}`,
+        src: `media/Portfolio/${category}/${image}`,
         alt: image.replace(/\.[^.]+$/, '').replace(/[-_]/g, ' '),
         category: dataCategory,
         title: image.replace(/\.[^.]+$/, '').replace(/[-_]/g, ' '),
